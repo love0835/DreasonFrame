@@ -185,9 +185,10 @@ object XrayConfigGenerator {
                 stream.put("tlsSettings", JSONObject().apply {
                     if (!server.sni.isNullOrBlank()) put("serverName", server.sni)
                     if (!server.fingerprint.isNullOrBlank()) put("fingerprint", server.fingerprint)
-                    if (!server.alpn.isNullOrBlank()) {
+                    val alpnValue = server.alpn
+                    if (!alpnValue.isNullOrBlank()) {
                         put("alpn", JSONArray().apply {
-                            server.alpn.split(",").map { it.trim() }.forEach { put(it) }
+                            alpnValue.split(",").map { it.trim() }.forEach { put(it) }
                         })
                     }
                     put("allowInsecure", server.allowInsecure)
