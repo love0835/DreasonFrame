@@ -1,0 +1,114 @@
+# 大陸常用域名 - 域名後綴匹配規則
+# 這些域名的流量會走中國代理
+
+# 搜尋引擎
+baidu.com
+sogou.com
+so.com
+sm.cn
+
+# 社交媒體
+weibo.com
+weibo.cn
+sinaimg.cn
+sina.com.cn
+qq.com
+wechat.com
+weixin.qq.com
+wx.qq.com
+
+# 影音平台
+bilibili.com
+bilivideo.com
+hdslb.com
+acfun.cn
+iqiyi.com
+youku.com
+tudou.com
+mgtv.com
+sohu.com
+letv.com
+douyin.com
+tiktokv.com
+douyinvod.com
+snssdk.com
+bytedance.com
+byteimg.com
+
+# 音樂平台
+163.com
+netease.com
+music.163.com
+kugou.com
+kuwo.cn
+xiami.com
+qqmusic.qq.com
+
+# 電商
+taobao.com
+tmall.com
+alicdn.com
+alipay.com
+alibaba.com
+1688.com
+jd.com
+jd.hk
+360buyimg.com
+pinduoduo.com
+yangkeduo.com
+vip.com
+
+# 外賣/生活
+meituan.com
+dianping.com
+eleme.cn
+ele.me
+ctrip.com
+qunar.com
+
+# 新聞
+toutiao.com
+jinritoutiao.com
+ifeng.com
+thepaper.cn
+163.com
+
+# 遊戲
+mihoyo.com
+hoyoverse.com
+hoyolab.com
+miyoushe.com
+
+# 地圖/出行
+amap.com
+autonavi.com
+didichuxing.com
+didi.cn
+
+# 雲端服務
+aliyun.com
+aliyuncs.com
+tencentyun.com
+qcloud.com
+huaweicloud.com
+baidubce.com
+
+# 支付
+alipay.com
+tenpay.com
+unionpay.com
+
+# 其他常用
+zhihu.com
+douban.com
+csdn.net
+jianshu.com
+gitee.com
+oschina.net
+cnblogs.com
+xiaomi.com
+mi.com
+huawei.com
+oppo.com
+vivo.com
+meizu.com

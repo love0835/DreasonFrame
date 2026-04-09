@@ -1,0 +1,77 @@
+# 台灣常用域名 - 域名後綴匹配規則
+# 這些域名的流量會走台灣代理
+
+# 通用台灣域名
+com.tw
+org.tw
+net.tw
+edu.tw
+gov.tw
+idv.tw
+
+# 電商
+pchome.com.tw
+shopee.tw
+momoshop.com.tw
+books.com.tw
+ruten.com.tw
+yahoo.com.tw
+
+# 新聞媒體
+ltn.com.tw
+udn.com
+ettoday.net
+tvbs.com.tw
+setn.com
+storm.mg
+cna.com.tw
+cts.com.tw
+ttv.com.tw
+ftv.com.tw
+chinatimes.com
+appledaily.com.tw
+
+# 社群/論壇
+ptt.cc
+dcard.tw
+mobile01.com
+pixnet.net
+xuite.net
+
+# 影音
+catchplay.com
+friday.tw
+litv.tv
+mytvsuper.com
+linetv.tw
+
+# 金融
+esunbank.com.tw
+cathayholdings.com
+ctbcbank.com
+megabank.com.tw
+taiwanmobile.com
+
+# 政府/公共服務
+nhi.gov.tw
+etax.nat.gov.tw
+post.gov.tw
+thsrc.com.tw
+railway.gov.tw
+
+# 外送
+foodpanda.com.tw
+ubereats.com
+
+# 電信
+cht.com.tw
+taiwanmobile.com
+fetnet.net
+aptg.com.tw
+
+# 其他常用
+104.com.tw
+1111.com.tw
+kkbox.com
+Line.me
+line.naver.jp
