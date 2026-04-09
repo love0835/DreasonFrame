@@ -114,13 +114,17 @@ fun HomeScreen(
                 modifier = Modifier.weight(1f),
                 label = "中國代理",
                 serverName = uiState.chinaServerName ?: "未設定",
+                subtitle = if (uiState.chinaServerName == null) "走手機網路" else null,
                 color = ChinaRoute,
+                isConfigured = uiState.chinaServerName != null,
             )
             ServerStatusCard(
                 modifier = Modifier.weight(1f),
                 label = "台灣代理",
                 serverName = uiState.taiwanServerName ?: "未設定",
+                subtitle = if (uiState.taiwanServerName == null) "走手機網路" else null,
                 color = TaiwanRoute,
+                isConfigured = uiState.taiwanServerName != null,
             )
         }
 
@@ -185,12 +189,15 @@ private fun ServerStatusCard(
     modifier: Modifier = Modifier,
     label: String,
     serverName: String,
+    subtitle: String? = null,
     color: Color,
+    isConfigured: Boolean = true,
 ) {
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = color.copy(alpha = 0.1f),
+            containerColor = if (isConfigured) color.copy(alpha = 0.1f)
+                else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
     ) {
         Column(
@@ -199,13 +206,22 @@ private fun ServerStatusCard(
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelMedium,
-                color = color,
+                color = if (isConfigured) color else MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = serverName,
                 style = MaterialTheme.typography.bodyMedium,
+                color = if (isConfigured) MaterialTheme.colorScheme.onSurface
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
             )
+            if (subtitle != null) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = DirectRoute,
+                )
+            }
         }
     }
 }

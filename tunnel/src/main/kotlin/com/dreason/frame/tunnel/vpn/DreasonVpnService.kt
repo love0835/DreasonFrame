@@ -115,8 +115,19 @@ class DreasonVpnService : VpnService() {
                 }
             }
 
+            // Load proxy servers (may be null — traffic falls back to direct)
+            val chinaServer = preferences.chinaServerId.first()?.let { serverRepository.getById(it) }
+            val taiwanServer = preferences.taiwanServerId.first()?.let { serverRepository.getById(it) }
+
             val defaultRoute = preferences.defaultRoute.first()
-            val ruleEngine = RuleEngine(appMatcher, domainMatcher, cidrMatcher, defaultRoute)
+            val ruleEngine = RuleEngine(
+                appMatcher = appMatcher,
+                domainMatcher = domainMatcher,
+                cidrMatcher = cidrMatcher,
+                defaultRoute = defaultRoute,
+                hasChinaProxy = chinaServer != null,
+                hasTaiwanProxy = taiwanServer != null,
+            )
 
             // Set up FakeIP pool for DNS interception
             val fakeIpPool = FakeIpPool()
@@ -129,10 +140,6 @@ class DreasonVpnService : VpnService() {
                 upstreamDns = dnsServerAddr,
                 vpnService = this,
             )
-
-            // Load proxy servers
-            val chinaServer = preferences.chinaServerId.first()?.let { serverRepository.getById(it) }
-            val taiwanServer = preferences.taiwanServerId.first()?.let { serverRepository.getById(it) }
 
             // Set up proxy dispatcher
             proxyDispatcher = ProxyDispatcher(
@@ -155,6 +162,14 @@ class DreasonVpnService : VpnService() {
                 localSocksPort = LOCAL_DISPATCHER_PORT,
                 mtu = TUN_MTU,
             )
+
+            // Update notification with proxy status
+            val statusParts = mutableListOf<String>()
+            if (chinaServer != null) statusParts.add("中國:${chinaServer.name}")
+            else statusParts.add("中國:直連")
+            if (taiwanServer != null) statusParts.add("台灣:${taiwanServer.name}")
+            else statusParts.add("台灣:直連")
+            updateNotification(statusParts.joinToString(" | "))
 
             VpnController.updateState(VpnState.Connected())
         } catch (e: Exception) {
@@ -216,5 +231,29 @@ class DreasonVpnService : VpnService() {
                 stopPendingIntent,
             )
             .build()
+    }
+
+    private fun updateNotification(statusText: String) {
+        val stopIntent = Intent(this, DreasonVpnService::class.java).apply {
+            action = ACTION_STOP
+        }
+        val stopPendingIntent = PendingIntent.getService(
+            this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("DreasonFrame — 分流中")
+            .setContentText(statusText)
+            .setSmallIcon(android.R.drawable.ic_lock_lock)
+            .setOngoing(true)
+            .addAction(
+                android.R.drawable.ic_media_pause,
+                "中斷連線",
+                stopPendingIntent,
+            )
+            .build()
+
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(NOTIFICATION_ID, notification)
     }
 }
