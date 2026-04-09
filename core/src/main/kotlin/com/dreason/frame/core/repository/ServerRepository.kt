@@ -5,6 +5,10 @@ import com.dreason.frame.core.database.entity.ServerEntity
 import com.dreason.frame.core.model.ProxyProtocol
 import com.dreason.frame.core.model.ProxyServer
 import com.dreason.frame.core.model.Route
+import com.dreason.frame.core.model.SecurityType
+import com.dreason.frame.core.model.TransportType
+import com.dreason.frame.core.model.VLessFlow
+import com.dreason.frame.core.model.VMessEncryption
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -42,12 +46,27 @@ class ServerRepository @Inject constructor(
         host = host,
         port = port,
         protocol = ProxyProtocol.valueOf(protocol),
-        username = username,
-        password = password,
-        encryptMethod = encryptMethod,
         routeGroup = Route.valueOf(routeGroup),
         enabled = enabled,
         latencyMs = latencyMs,
+        username = username,
+        password = password,
+        uuid = uuid,
+        transport = transport?.let { TransportType.valueOf(it) } ?: TransportType.TCP,
+        wsPath = wsPath,
+        wsHost = wsHost,
+        grpcServiceName = grpcServiceName,
+        security = security?.let { SecurityType.valueOf(it) } ?: SecurityType.NONE,
+        sni = sni,
+        fingerprint = fingerprint,
+        alpn = alpn,
+        allowInsecure = allowInsecure,
+        realityPublicKey = realityPublicKey,
+        realityShortId = realityShortId,
+        vmessEncryption = vmessEncryption?.let { VMessEncryption.valueOf(it) } ?: VMessEncryption.AUTO,
+        alterId = alterId,
+        vlessFlow = vlessFlow?.let { VLessFlow.valueOf(it) } ?: VLessFlow.NONE,
+        encryptMethod = encryptMethod,
     )
 
     private fun ProxyServer.toEntity() = ServerEntity(
@@ -56,11 +75,26 @@ class ServerRepository @Inject constructor(
         host = host,
         port = port,
         protocol = protocol.name,
-        username = username,
-        password = password,
-        encryptMethod = encryptMethod,
         routeGroup = routeGroup.name,
         enabled = enabled,
         latencyMs = latencyMs,
+        username = username,
+        password = password,
+        uuid = uuid,
+        transport = transport.name,
+        wsPath = wsPath,
+        wsHost = wsHost,
+        grpcServiceName = grpcServiceName,
+        security = security.name,
+        sni = sni,
+        fingerprint = fingerprint,
+        alpn = alpn,
+        allowInsecure = allowInsecure,
+        realityPublicKey = realityPublicKey,
+        realityShortId = realityShortId,
+        vmessEncryption = vmessEncryption.name,
+        alterId = alterId,
+        vlessFlow = vlessFlow.name,
+        encryptMethod = encryptMethod,
     )
 }

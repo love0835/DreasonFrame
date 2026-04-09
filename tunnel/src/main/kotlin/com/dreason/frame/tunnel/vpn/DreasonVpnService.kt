@@ -142,6 +142,7 @@ class DreasonVpnService : VpnService() {
                 chinaServer = chinaServer,
                 taiwanServer = taiwanServer,
                 vpnService = this,
+                context = applicationContext,
             )
 
             // Start components

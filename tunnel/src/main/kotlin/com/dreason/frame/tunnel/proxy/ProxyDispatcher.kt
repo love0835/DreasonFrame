@@ -1,9 +1,11 @@
 package com.dreason.frame.tunnel.proxy
 
+import android.content.Context
 import android.net.VpnService
 import com.dreason.frame.core.model.ProxyServer
 import com.dreason.frame.core.model.Route
 import com.dreason.frame.tunnel.dns.FakeIpPool
+import com.dreason.frame.tunnel.proxy.xray.XrayClient
 import com.dreason.frame.tunnel.routing.RuleEngine
 import com.dreason.frame.tunnel.stats.TrafficMonitor
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +37,7 @@ class ProxyDispatcher(
     private val chinaServer: ProxyServer?,
     private val taiwanServer: ProxyServer?,
     private val vpnService: VpnService,
+    private val context: Context,
 ) {
 
     private var serverSocket: ServerSocket? = null
@@ -193,12 +196,22 @@ class ProxyDispatcher(
 
     fun getTrafficMonitor(): TrafficMonitor = trafficMonitor
 
+    private var xrayLocalPortCounter = 10900
+
     private fun createClient(server: ProxyServer): ProxyClient = when (server.protocol) {
         com.dreason.frame.core.model.ProxyProtocol.SOCKS5 -> Socks5Client(server, vpnService)
         com.dreason.frame.core.model.ProxyProtocol.HTTP -> HttpProxyClient(server, vpnService)
         com.dreason.frame.core.model.ProxyProtocol.SHADOWSOCKS -> {
             val client = ShadowsocksClient(server, vpnService)
             client.startLocalProxy()
+            client
+        }
+        com.dreason.frame.core.model.ProxyProtocol.VMESS,
+        com.dreason.frame.core.model.ProxyProtocol.VLESS,
+        com.dreason.frame.core.model.ProxyProtocol.TROJAN -> {
+            val localPort = xrayLocalPortCounter++
+            val client = XrayClient(server, vpnService, context, localPort)
+            client.start()
             client
         }
     }

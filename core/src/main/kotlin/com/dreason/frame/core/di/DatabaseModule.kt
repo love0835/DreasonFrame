@@ -24,7 +24,9 @@ object DatabaseModule {
             context,
             DreasonDatabase::class.java,
             "dreason_frame.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     fun provideServerDao(db: DreasonDatabase): ServerDao = db.serverDao()
