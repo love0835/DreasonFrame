@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background circle -->
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+    <!-- Split arrow: left (China route) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30 L54,50 L38,50 L38,44 L28,54 L38,64 L38,58 L54,58 L54,78"
+        android:strokeWidth="0" />
+    <!-- Split arrow: right (Taiwan route) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30 L54,50 L70,50 L70,44 L80,54 L70,64 L70,58 L54,58 L54,78"
+        android:strokeWidth="0" />
+    <!-- Center line -->
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M52,28 L56,28 L56,80 L52,80 Z" />
+</vector>
