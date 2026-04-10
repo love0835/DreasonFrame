@@ -113,10 +113,11 @@ private fun LogEntry(log: ConnectionLog) {
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    if (log.sourceApp != null) {
+                    val appName = log.sourceApp
+                    if (appName != null) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = log.sourceApp,
+                            text = appName,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
